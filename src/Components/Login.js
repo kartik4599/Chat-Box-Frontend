@@ -6,15 +6,49 @@ import {
   InputGroup,
   InputRightElement,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
+import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
+  const navigate = useNavigate();
+  const submitHandler = async () => {
+    setLoading(true);
+    try {
+      const obj = {
+        email,
+        password,
+      };
+      const { data } = await axios.post("/api/user/login", obj);
 
-  const submitHandler = () => {};
+      toast({
+        title: "Login Succesfully",
+        status: "success",
+        duration: 5000,
+      });
+
+      console.log(data);
+      localStorage.setItem("user", JSON.stringify(data));
+      setLoading(false);
+      navigate("/chat");
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+      toast({
+        title: "Some Error occured",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <VStack spacing={"5px"}>
@@ -53,20 +87,10 @@ const Login = () => {
       <Button
         colorScheme="teal"
         width={"100%"}
+        isLoading={loading}
         style={{ marginTop: 15 }}
         onClick={submitHandler}>
         Log In
-      </Button>
-      <Button
-        style={{ marginTop: 15, background: "#F9BCBA" }}
-        // variant={"solid"}
-        // colorScheme="red"
-        width={"100%"}
-        onClick={() => {
-          setEmail("guest@email.com");
-          setPassword("123456");
-        }}>
-        Log In As Guest
       </Button>
     </VStack>
   );
