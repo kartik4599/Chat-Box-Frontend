@@ -4,12 +4,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { getSender } from "../../config/ChatLogic";
 import { ChatState } from "../../context/ChatProvider";
+import GroupChatModal from "../Modal/GroupChatModal";
 import ChatLoading from "./ChatLoading";
 
-const MyChats = () => {
+const MyChats = ({ fetchAgain }) => {
   const [loogedUser, setLoggedUser] = useState();
-  const { user, setUser, selectedChat, setSelectedChat, chats, setChats } =
-    ChatState();
+  const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState();
   const toast = useToast();
 
   const fetchChats = async () => {
@@ -34,11 +34,11 @@ const MyChats = () => {
       });
     }
   };
-  console.log(chats);
+
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("user")));
     fetchChats();
-  }, []);
+  }, [fetchAgain]);
 
   return (
     <Box
@@ -60,23 +60,24 @@ const MyChats = () => {
         justifyContent={"space-between"}
         alignItems="center">
         My Chats
-        <Button
-          display={"flex"}
-          fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-          rightIcon={<AddIcon />}>
-          New Group Chat
-        </Button>
+        <GroupChatModal>
+          <Button
+            display={"flex"}
+            fontSize={{ base: "17px", md: "10px", lg: "17px" }}
+            rightIcon={<AddIcon />}>
+            New Group Chat
+          </Button>
+        </GroupChatModal>
       </Box>
       <Box
         display={"flex"}
         flexDir="column"
         p={3}
-        bg="#F8F8F8"
+        bg="whiteAlpha.500"
         borderRadius={"lg"}
         overflowY="hidden"
         w="100%"
-        h="100%"
-        >
+        h="100%">
         {chats ? (
           <Stack overflowY={"scroll"}>
             {chats.map((chat) => {
@@ -86,7 +87,7 @@ const MyChats = () => {
                     setSelectedChat(chat);
                   }}
                   cursor="pointer"
-                  bg={selectedChat === chat ? "teal.100" : "blackAlpha.400"}
+                  bg={selectedChat === chat ? "teal.100" : "whiteAlpha.900"}
                   px={3}
                   py={2}
                   borderRadius="lg"

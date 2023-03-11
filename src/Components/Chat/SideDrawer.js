@@ -25,7 +25,7 @@ import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 
 import { ChatState } from "../../context/ChatProvider";
-import ProfileModal from "../profile/ProfileModal";
+import ProfileModal from "../Modal/ProfileModal";
 import { useNavigate } from "react-router-dom";
 import ChatLoading from "./ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
