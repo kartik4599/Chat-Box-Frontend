@@ -87,7 +87,7 @@ const MyChats = ({ fetchAgain }) => {
                     setSelectedChat(chat);
                   }}
                   cursor="pointer"
-                  bg={selectedChat === chat ? "teal.100" : "whiteAlpha.900"}
+                  bg={selectedChat === chat ? "teal.500" : "whiteAlpha.900"}
                   px={3}
                   py={2}
                   borderRadius="lg"

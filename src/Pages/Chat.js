@@ -20,7 +20,7 @@ const Chat = () => {
             height: "91.5vh",
             padding: "10px",
           }}>
-          <MyChats fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
+          <MyChats fetchAgain={fetchAgain}  />
           <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
         </Box>
       )}

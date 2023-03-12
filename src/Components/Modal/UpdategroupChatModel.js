@@ -22,7 +22,7 @@ import { ChatState } from "../../context/ChatProvider";
 import UserBadgeItem from "../UserAvatar/UserBadgeItem";
 import UserListItem from "../UserAvatar/UserListItem";
 
-const UpdategroupChatModel = ({ fetchAgain, setFetchAgain }) => {
+const UpdategroupChatModel = ({ fetchAgain, setFetchAgain, fetchMessage }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { selectedChat, setSelectedChat, user } = ChatState();
   const [groupChatName, setGroupChatName] = useState("");
@@ -142,6 +142,7 @@ const UpdategroupChatModel = ({ fetchAgain, setFetchAgain }) => {
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
+      fetchMessage();
       setLoading(false);
     } catch (e) {
       setLoading(false);
